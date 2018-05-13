@@ -91,7 +91,6 @@ export default class Game {
             this.p5.strokeWeight(1);
             this.p5.stroke(0);
           }
-          debugger;
           if (config[value]) {
             this.p5.fill(config[value].color);
           }
