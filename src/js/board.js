@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { BOARD_SIZE } from './game';
 
 export default class Board {
   constructor(size) {
@@ -38,6 +39,21 @@ export default class Board {
         .map(_ => _)
         .concat(values);
     });
+  }
+
+  double(x) {
+    return x * 2;
+  }
+
+  combine() {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+      for (let j = 0; j < BOARD_SIZE - 1; j++) {
+        if (this.grid[i][j] === this.grid[i][j + 1]) {
+          this.grid[i][j] = 0;
+          this.grid[i][j + 1] = this.double(this.grid[i][j + 1]);
+        }
+      }
+    }
   }
 
   print() {
