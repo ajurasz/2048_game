@@ -12,7 +12,17 @@ const sketch = p => {
   p.draw = () => {};
 
   p.keyPressed = () => {
-    game.moveRight();
+    switch (p.keyCode) {
+      case p.UP_ARROW:
+        break;
+      case p.RIGHT_ARROW:
+        game.moveRight();
+        break;
+      case p.DOWN_ARROW:
+        break;
+      case p.LEFT_ARROW:
+        break;
+    }
     game.draw();
   };
 };

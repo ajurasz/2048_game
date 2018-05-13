@@ -3,7 +3,6 @@ import { BOARD_SIZE } from './game';
 
 export default class Board {
   constructor(size) {
-    console.log('Board constructor');
     this.size = size;
     this.grid = new Array(size).fill().map(_ => new Array(size).fill(0));
   }
@@ -54,6 +53,12 @@ export default class Board {
         }
       }
     }
+  }
+
+  copy() {
+    const copy = new Board(this.size);
+    copy.grid = this.grid.map(row => row.slice());
+    return copy;
   }
 
   print() {
