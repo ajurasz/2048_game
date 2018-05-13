@@ -1,4 +1,6 @@
+import '../css/style.css';
 import p5 from 'p5';
+import 'p5/lib/addons/p5.dom';
 import Game from './game';
 
 const sketch = p => {

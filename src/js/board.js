@@ -3,8 +3,13 @@ import { BOARD_SIZE } from './game';
 
 export default class Board {
   constructor(size) {
+    this.score = 0;
     this.size = size;
     this.grid = new Array(size).fill().map(_ => new Array(size).fill(0));
+  }
+
+  getScore() {
+    return this.score;
   }
 
   getEmptyCells() {
@@ -52,6 +57,7 @@ export default class Board {
         if (this.grid[i][j] === this.grid[i][j + 1]) {
           this.grid[i][j] = 0;
           this.grid[i][j + 1] = this.double(this.grid[i][j + 1]);
+          this.score += this.grid[i][j + 1];
         }
       }
     }

@@ -1,12 +1,14 @@
 import Board from './board';
+import config from './config';
 
-export const BOARD_SIZE = 3;
+export const BOARD_SIZE = 4;
 export const CELL_SIZE = 100;
 
 export default class Game {
   constructor(p5) {
     this.finished = false;
     this.p5 = p5;
+    this.p5.noLoop();
     this.canvas = p5.createCanvas(
       BOARD_SIZE * CELL_SIZE + 2,
       BOARD_SIZE * CELL_SIZE + 2
@@ -74,25 +76,29 @@ export default class Game {
 
   draw() {
     this.canPlay(() => {
-      this.p5.noLoop();
       this.p5.background(255);
       this.p5.strokeWeight(1);
       this.p5.stroke(0);
+      this.p5.select('.score').html(this.board.getScore());
       for (let i = 0; i < BOARD_SIZE; i++) {
         for (let j = 0; j < BOARD_SIZE; j++) {
           const value = this.board.grid[j][i];
           this.p5.noFill();
           if (this.position && this.position.y === i && this.position.x === j) {
             this.p5.strokeWeight(5);
-            this.p5.stroke(200, 100, 50);
+            this.p5.stroke('#8e4cc7');
           } else {
             this.p5.strokeWeight(1);
             this.p5.stroke(0);
           }
+          debugger;
+          if (config[value]) {
+            this.p5.fill(config[value].color);
+          }
           this.p5.rect(i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE, 15);
           if (value !== 0) {
             this.p5.textAlign(this.p5.CENTER, this.p5.CENTER);
-            this.p5.textSize(32);
+            this.p5.textSize(config[value].size);
             this.p5.strokeWeight(1);
             this.p5.stroke(0);
             this.p5.fill(0);
