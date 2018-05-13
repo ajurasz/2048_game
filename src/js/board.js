@@ -13,8 +13,8 @@ export default class Board {
       row.forEach((column, j) => {
         if (column === 0) {
           options.push({
-            i,
-            j
+            x: i,
+            y: j
           });
         }
       })
@@ -27,7 +27,9 @@ export default class Board {
     const slots = this.getEmptyCells();
     if (slots.length === 0) throw new Error('No empty slots left');
     const position = _.sample(slots);
-    this.grid[position.i][position.j] = Math.random() > 0.9 ? 4 : 2;
+    this.grid[position.x][position.y] = Math.random() > 0.9 ? 4 : 2;
+
+    return position;
   }
 
   slide() {
@@ -53,6 +55,38 @@ export default class Board {
         }
       }
     }
+  }
+
+  flipBack() {
+    this.grid.forEach(row => row.reverse());
+  }
+
+  flipLeft() {
+    const newGrid = new Array(this.size)
+      .fill()
+      .map(_ => new Array(this.size).fill(0));
+
+    for (let i = 0; i < BOARD_SIZE; i++) {
+      let k = BOARD_SIZE - 1 - i;
+      for (let j = 0; j < BOARD_SIZE; j++) {
+        newGrid[i][j] = this.grid[j][k];
+      }
+    }
+
+    this.grid = newGrid;
+  }
+
+  flipRight() {
+    const newGrid = new Array(this.size)
+      .fill()
+      .map(_ => new Array(this.size).fill(0));
+
+    for (let i = BOARD_SIZE - 1; i >= 0; i--) {
+      for (let j = BOARD_SIZE - 1; j >= 0; j--) {
+        newGrid[i][j] = this.grid[BOARD_SIZE - 1 - j][i];
+      }
+    }
+    this.grid = newGrid;
   }
 
   copy() {

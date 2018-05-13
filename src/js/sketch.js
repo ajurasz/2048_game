@@ -14,13 +14,16 @@ const sketch = p => {
   p.keyPressed = () => {
     switch (p.keyCode) {
       case p.UP_ARROW:
+        game.moveUp();
         break;
       case p.RIGHT_ARROW:
         game.moveRight();
         break;
       case p.DOWN_ARROW:
+        game.moveDown();
         break;
       case p.LEFT_ARROW:
+        game.moveLeft();
         break;
     }
     game.draw();
